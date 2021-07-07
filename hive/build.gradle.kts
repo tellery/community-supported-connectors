@@ -6,6 +6,13 @@ version = "0.0.1-SNAPSHOT"
 
 repositories {
     mavenLocal()
+    maven {
+        url = uri("https://maven.pkg.github.com/tellery/tellery")
+        credentials {
+            username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_USERNAME")
+            password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
+        }
+    }
     jcenter()
 }
 
@@ -16,7 +23,7 @@ plugins {
 }
 
 dependencies {
-    implementation("io.tellery:connector-interface:0.0.1-SNAPSHOT")
+    implementation("io.tellery:connector-interface:0.4.0-SNAPSHOT")
     implementation("org.apache.hive:hive-jdbc:2.1.0") {
         exclude(group = "org.slf4j", module = "")
         exclude(group = "log4j", module = "log4j")

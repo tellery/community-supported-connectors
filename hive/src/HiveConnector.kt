@@ -16,11 +16,9 @@ import java.sql.Types
 
 @Connector(
     type="Hive/SparkSQL",
-    jdbcConfigs = [
+    configs = [
         Config(name="Endpoint", type= ConfigType.STRING, description="The endpoint of your hive / sparkSQL thrift server", hint="localhost",required=true),
         Config(name="Port", type= ConfigType.NUMBER, description="the port number", hint="10001",required=true),
-    ],
-    optionals = [
         Config(name="S3AccessKey", type=ConfigType.STRING, description="S3 Access Key ID(for uploading csv)"),
         Config(name="S3SecretKey", type=ConfigType.STRING, description="S3 Secret Access Key (for uploading csv)", secret=true),
         Config(name="S3Region", type=ConfigType.STRING, description="S3 region (be the same as your Redshift cluster", hint="us-east-1"),
@@ -42,7 +40,7 @@ class HiveConnector : JDBCConnector() {
 
     override fun initByProfile(profile: Profile) {
         super.initByProfile(profile)
-        s3Client = S3Storage.buildByOptionals(profile.optionals)
+        s3Client = S3Storage.buildFromConfigs(profile.configs)
         s3Client?.run {
             logger.info("{} has initialized s3 client", profile.name)
         }
