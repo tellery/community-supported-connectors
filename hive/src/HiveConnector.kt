@@ -33,8 +33,8 @@ class HiveConnector : JDBCConnector() {
     override val transactionIsolationLevel = Connection.TRANSACTION_READ_UNCOMMITTED
 
     override fun buildConnectionStr(profile: Profile): String {
-        val endpoint = profile.configs["endpoint"]
-        val port = profile.configs["port"]
+        val endpoint = profile.configs["Endpoint"]
+        val port = profile.configs["Port"]
         return "jdbc:hive2://${endpoint}:${port}"
     }
 
