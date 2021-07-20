@@ -2,10 +2,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 group = "io.tellery.connectors"
-version = "0.0.1-SNAPSHOT"
+version = "0.5.0"
 
 repositories {
-    mavenLocal()
     maven {
         url = uri("https://maven.pkg.github.com/tellery/tellery")
         credentials {
@@ -18,12 +17,12 @@ repositories {
 
 plugins {
     idea
-    kotlin("jvm") version "1.4.20"
+    kotlin("jvm") version "1.5.21"
     id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 
 dependencies {
-    implementation("io.tellery:connector-interface:0.4.0-SNAPSHOT")
+    implementation("io.tellery:connector-interface:0.5.0-SNAPSHOT")
     implementation("org.apache.hive:hive-jdbc:2.1.0") {
         exclude(group = "org.slf4j", module = "")
         exclude(group = "log4j", module = "log4j")
