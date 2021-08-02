@@ -2,11 +2,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 group = "io.tellery.connectors"
-version = "0.5.0"
+version = "0.6.0-SNAPSHOT"
 
 repositories {
+    mavenLocal()
     maven {
-        url = uri("https://maven.pkg.github.com/tellery/tellery")
+        url = uri("https://maven.pkg.github.com/tellery/community-supported-connectors")
         credentials {
             username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_USERNAME")
             password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
@@ -19,16 +20,21 @@ plugins {
     idea
     kotlin("jvm") version "1.5.21"
     id("com.github.johnrengelman.shadow") version "5.2.0"
+
 }
 
 dependencies {
-    implementation("io.tellery:connector-interface:0.5.0-SNAPSHOT")
-    implementation("org.apache.hive:hive-jdbc:2.1.0") {
-        exclude(group = "org.slf4j", module = "")
+    compileOnly("io.tellery:connector-interface:0.6.0-rc1-SNAPSHOT")
+    runtimeOnly("org.apache.hive:hive-jdbc:2.1.0") {
+        exclude(group = "org.slf4j")
         exclude(group = "log4j", module = "log4j")
-        exclude(group = "org.apache.logging.log4j", module = "")
+        exclude(group = "org.apache.logging.log4j")
         exclude(group = "io.netty", module = "netty")
         exclude(group = "com.google.protobuf", module = "protobuf-java")
+        exclude(group = "com.fasterxml.jackson.dataformat")
+        exclude(group = "com.fasterxml.jackson.module")
+        exclude(group = "com.fasterxml.jackson.core")
+        exclude(group = "com.google.guava", module="guava")
     }
 }
 
