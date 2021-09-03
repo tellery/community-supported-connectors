@@ -1,0 +1,50 @@
+{
+  "identifier": "`?`",
+  "stringLiteral": "'?'",
+  "aggregation": {
+    "CHAR,VARCHAR,LONGVARCHAR,DATE,TIME,TIMESTAMP": {
+      "count": "count(?)",
+      "countDistinct": "count(distinct ?)"
+    },
+    "TINYINT,SMALLINT,INTEGER,BIGINT,FLOAT,REAL,DOUBLE,NUMERIC,DECIMAL": {
+      "sum": "sum(?)",
+      "avg": "avg(?)",
+      "min": "min(?)",
+      "max": "max(?)",
+      "median": "percentile(?, 0.5)",
+      "std": "stddev(?)"
+    }
+  },
+  "bucketization": {
+    "CHAR,VARCHAR,LONGVARCHAR,TINYINT,SMALLINT,INTEGER,BIGINT": {},
+    "DATE,TIME,TIMESTAMP": {
+      "byYear": "year(?)",
+      "byMonth": "date_format(?, 'yyyy-MM')",
+      "byWeek": "weekofyear(?)",
+      "byDate": "to_date(?)"
+    }
+  },
+  "comparator": {
+    "rlike": "? RLIKE ?",
+    "like": "? LIKE ?",
+    "isNull": "? IS NULL",
+    "isNotNull": "? IS NOT NULL",
+    "isTrue": "? IS TRUE",
+    "isFalse": "? IS False",
+    "greater": "? > ?",
+    "less": "? < ?",
+    "greaterOrEqual": "? >= ?",
+    "lessOrEqual": "? <= ?",
+    "notEqual": "? != ?",
+    "between": "? BETWEEN ? AND ?",
+    "notBetween": "? NOT BETWEEN ? AND ?",
+    "and": "AND",
+    "or": "OR"
+  },
+  "typeConversion": {
+    "TINYINT,SMALLINT,INTEGER,BIGINT,FLOAT,REAL,DOUBLE,NUMERIC,DECIMAL": "?",
+    "CHAR,VARCHAR,LONGVARCHAR": "'?'",
+    "DATE": "date('?')",
+    "TIME,TIMESTAMP": "timestamp('?')"
+  }
+}

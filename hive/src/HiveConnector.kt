@@ -217,6 +217,7 @@ class HiveConnector : JDBCConnector() {
             "int" -> Types.INTEGER
             "real" -> Types.REAL
             "smallint" -> Types.SMALLINT
+            "time" -> Types.TIME
             "timestamp" -> Types.TIMESTAMP
             "tinyint" -> Types.TINYINT
             else -> {
