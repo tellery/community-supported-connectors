@@ -79,7 +79,7 @@ class HiveConnector : JDBCConnector() {
     override val driverClassName = "org.apache.hive.jdbc.HiveDriver"
     override val transactionIsolationLevel = Connection.TRANSACTION_READ_UNCOMMITTED
 
-    override fun buildConnectionStr(profile: Profile): String {
+    override fun buildConnectionStr(profile: ProfileEntity): String {
         val endpoint = profile.configs["Endpoint"]
         val port = profile.configs["Port"]
         return "jdbc:hive2://${endpoint}:${port}"
@@ -87,11 +87,11 @@ class HiveConnector : JDBCConnector() {
 
     private var s3Client: S3Storage? = null
 
-    override fun initByProfile(profile: Profile) {
+    override fun initByProfile(profile: ProfileEntity) {
         super.initByProfile(profile)
         s3Client = S3Storage.buildFromConfigs(profile.configs)
         s3Client?.run {
-            logger.info("{} has initialized s3 client", profile.name)
+            logger.info("workspace {}:{} has initialized s3 client", profile.id, profile.type)
         }
     }
 
